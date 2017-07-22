@@ -77,15 +77,20 @@ class iDokladResponse
         $this->headers = substr($rawOutput, 0, $headerSize);
 
         $parsed = $this->parseJSON(trim(substr($rawOutput, $headerSize)));
-        $this->data = $parsed['Data'];
-        if (array_key_exists('Links', $parsed)) {
-            $this->links = $parsed['Links'];
-        }
-        if (array_key_exists('TotalItems', $parsed)) {
-            $this->totalItems = $parsed['TotalItems'];
-        }
-        if (array_key_exists('TotalPages', $parsed)) {
-            $this->totalPages = $parsed['TotalPages'];
+        if (array_key_exists('Data', $parsed)) {
+            $this->data = $parsed['Data'];
+
+            if (array_key_exists('Links', $parsed)) {
+                $this->links = $parsed['Links'];
+            }
+            if (array_key_exists('TotalItems', $parsed)) {
+                $this->totalItems = $parsed['TotalItems'];
+            }
+            if (array_key_exists('TotalPages', $parsed)) {
+                $this->totalPages = $parsed['TotalPages'];
+            }
+        } else {
+            $this->data = $parsed;
         }
     }
 
