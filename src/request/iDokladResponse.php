@@ -75,7 +75,9 @@ class iDokladResponse {
         
         $parsed = $this->parseJSON(trim(substr($rawOutput, $headerSize)));
         $this->data = $parsed['Data'];
-        $this->links = $parsed['Links'];
+        if (array_key_exists('Links', $parsed)) {
+            $this->links = $parsed['Links'];
+        }
         $this->totalItems = $parsed['TotalItems'];
         $this->totalPages = $parsed['TotalPages'];
     }
